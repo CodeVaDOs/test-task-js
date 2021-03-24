@@ -6,6 +6,7 @@ const mapObjectByProto = (obj, proto) => {
   }
 }
 
+
 module.exports = {
   mapObjectByProto
 }
