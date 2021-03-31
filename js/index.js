@@ -20,8 +20,8 @@ const proto1 = {
 }
 
 console.log("1. BEFORE:", util.inspect(src1, false, null, true))
-mapObjectByProto(src1, proto1)
-console.log("1. AFTER:", util.inspect(src1, false, null, true))
+const result1 = mapObjectByProto(src1, proto1)
+console.log("1. AFTER:", util.inspect(result1, false, null, true))
 console.log("1. PROTO:", util.inspect(proto1, false, null, true))
 
 
@@ -65,8 +65,8 @@ const proto2 = {
 console.log('-------------------------------------------');
 
 console.log("\n2. BEFORE:", util.inspect(src2, false, null, true))
-mapObjectByProto(src2, proto2)
-console.log("2. AFTER:", util.inspect(src2, false, null, true))
+const result2 = mapObjectByProto(src2, proto2)
+console.log("2. AFTER:", util.inspect(result2, false, null, true))
 console.log("2. PROTO:", util.inspect(proto2, false, null, true))
 
 
@@ -101,6 +101,6 @@ const proto3 = {
 console.log('-------------------------------------------');
 
 console.log("\n3. BEFORE:", util.inspect(src3, false, null, true))
-mapObjectByProto(src3, proto3)
-console.log("3. AFTER:", util.inspect(src3, false, null, true))
+const result3 = mapObjectByProto(src3, proto3)
+console.log("3. AFTER:", util.inspect(result3, false, null, true))
 console.log("3. PROTO:", util.inspect(proto3, false, null, true))
