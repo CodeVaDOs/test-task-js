@@ -5,42 +5,52 @@ require('dotenv').config()
 const API_KEY = process.env.API_KEY;
 
 const getCalendarData = (cal_id, timeMin, timeMax) => {
-  const url = `https://www.googleapis.com/calendar/v3/calendars/${cal_id}/events?timeMin=${timeMin}&timeMax=${timeMax}&key=${API_KEY}`;
+  const data = JSON.stringify({
+    timeMin,
+    timeMax,
+    items: [
+      {id: cal_id}
+    ]
+  })
+
+  const options = {
+    hostname: 'www.googleapis.com',
+    path: `/calendar/v3/freeBusy?key=${API_KEY}`,
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Content-Length': data.length
+    }
+  }
 
   return new Promise((resolve, reject) => {
-      https.get(url, (res) => {
+      const req = https.request(options, res => {
         const data = [];
-        res.on('data', (chunk) => {
-          data.push(chunk);
+        res.on('data', chunk => {
+          data.push(chunk)
         })
 
         res.on('end', () => {
           const d = JSON.parse(data.join(''));
-          d.error
-            ? reject(d)
-            : resolve(d);
+          d.error ? reject(d) : resolve(d);
         })
       }).on('error', (e) => {
         reject(e);
-      });
+      })
+      req.write(data);
     }
   )
 }
 
-const getBusyIntervals = (calendarData) => {
-  return calendarData.items.map((item) => ({
-    start: item.start.dateTime,
-    end: item.end.dateTime
-  }));
-}
-
 const from = new Date();
+from.setMonth(1);
 const to = new Date();
-to.setMonth(6);
+to.setMonth(2);
 
-getCalendarData('fb3up8j21od3mf1k8b6hk0489s@group.calendar.google.com', from.toISOString(), to.toISOString())
-  .then(d => getBusyIntervals(d))
-  .then(busyIntervals => {
-    console.log(busyIntervals);
+const calendarId = 'fb3up8j21od3mf1k8b6hk0489s@group.calendar.google.com';
+
+getCalendarData(calendarId, from.toISOString(), to.toISOString())
+  .then(d => {
+    console.log(d.calendars[calendarId])
   })
   .catch(e => console.log(e));
