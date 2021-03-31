@@ -29,9 +29,9 @@ test("Object by proto test with example source", () => {
     prop12: 12
   }
 
-  mapObjectByProto(src, proto)
+  const r = mapObjectByProto(src, proto)
 
-  expect(src).toStrictEqual(result);
+  expect(r).toStrictEqual(result);
 })
 
 test("Object by proto test 2", () => {
@@ -71,9 +71,9 @@ test("Object by proto test 2", () => {
     prop13: 13
   }
 
-  mapObjectByProto(src, proto)
+  const r = mapObjectByProto(src, proto)
 
-  expect(src).toStrictEqual(result);
+  expect(r).toStrictEqual(result);
 })
 
 test("Object by proto test 3", () => {
@@ -130,7 +130,7 @@ test("Object by proto test 3", () => {
     }
   }
 
-  mapObjectByProto(src, proto)
+  const r = mapObjectByProto(src, proto)
 
-  expect(src).toStrictEqual(result);
+  expect(r).toStrictEqual(result);
 })

@@ -1,9 +1,14 @@
-const mapObjectByProto = (obj, proto) => {
+const mapObjectByProto = (obj, proto, _newObj = {}) => {
   for (const key in obj) {
-    if (proto[key] === null) continue;
-    if (!proto[key]) delete obj[key];
-    else if (typeof obj[key] === 'object') mapObjectByProto(obj[key], proto[key]);
+    if (!proto) continue;
+
+    proto[key] === null || proto[key]
+      ? _newObj[key] = obj[key]
+      : delete _newObj[key];
+
+    if (typeof _newObj[key] === 'object') mapObjectByProto(obj[key], proto[key], _newObj[key]);
   }
+  return _newObj;
 }
 
 
